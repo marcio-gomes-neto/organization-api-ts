@@ -21,9 +21,9 @@ test('should not find any organization', () => {
         })
 })
 
-test('should find organization with id=1 and update', () => {
+test('should find organization with id=4 and update', () => {
     return request(app)
-        .put(`/organization/update?id=1`)
+        .put(`/organization/update?id=4`)
         .send({rsocial: `marcio's org`, endereco: 'rua abcdefg', cidade:'Bh'})
         .then((res) => {
             expect(res.status).toBe(200)
@@ -32,7 +32,7 @@ test('should find organization with id=1 and update', () => {
 })
 test('should find updated organization', () => {
     return request(app)
-        .get(`/organization/search?id=1`)
+        .get(`/organization/search?id=4`)
         .then((res) => {
             expect(res.status).toBe(200)
             expect(res.body.rsocial).toBe(`marcio's org`);

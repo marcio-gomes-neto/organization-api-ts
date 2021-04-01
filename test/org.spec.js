@@ -69,17 +69,17 @@ describe('tests for bad values', () => {
 
 test('should find one organization by ID', () => {
     return request(app)
-        .get(`/organization/search?id=1`)
+        .get(`/organization/search?id=10`)
         .then((res) => {
-            expect(res.body.id).toBe(1)
+            expect(res.body.id).toBe(10)
         })
 })
 
 test('should find one organization by CNPJ', () => {
     return request(app)
-        .get(`/organization/search?cnpj=1616023583026`)
+        .get(`/organization/search?cnpj=1616023501910`)
         .then((res) => {
-            expect(res.body.cnpj).toBe(`1616023583026`)
+            expect(res.body.cnpj).toBe(`1616023501910`)
         })
 })
 
