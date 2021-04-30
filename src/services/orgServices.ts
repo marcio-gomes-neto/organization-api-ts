@@ -1,5 +1,6 @@
 import Organization from '../models/OrganizationModel';
 import {Request, Response} from "express";
+import IOrganization from '../interfaces/organization-interface';
 
 export default class OrgServices {
     
@@ -7,8 +8,7 @@ export default class OrgServices {
       try{
          
          const getOrgs = await Organization.find();
-         return res.status(200).json(getOrgs);
-
+         return res.status(200).json({orgs: getOrgs});
       }catch(e){
          
          return res.status(500).json(e);
@@ -17,7 +17,7 @@ export default class OrgServices {
 
    async newUser(req:Request, res:Response) {
       
-      const {cnpj, rsocial, email} = req.body;
+      const {cnpj, rsocial, email}:IOrganization = req.body;
       if(!cnpj || !rsocial || !email){ return res.status(400).json({err:'Organization needs a CPNJ, Razão Social and Email!'}) }
       
       try{
@@ -28,7 +28,7 @@ export default class OrgServices {
          const newOrg = new Organization({cnpj, rsocial, email});
          await newOrg.save();
 
-         return res.status(201).json({msg: 'Organization Created!', cnpj})
+         return res.status(201).json({data: newOrg})
       }catch(e){
 
          console.log(e)
@@ -42,7 +42,7 @@ export default class OrgServices {
       try{
 
          const searchRequest = await Organization.findOne({cnpj}); 
-         return searchRequest ? res.status(200).json(searchRequest) : res.status(404).json({msg:"No Organization Found"});
+         return searchRequest ? res.status(200).json({data: searchRequest}) : res.status(404).json({err:"No Organization Found"});
       }catch(e){
          
          console.log(e)
@@ -56,7 +56,7 @@ export default class OrgServices {
       try{
 
          const searchRequest = await Organization.findById({_id: id}); 
-         return searchRequest ? res.status(200).json(searchRequest) : res.status(404).json({msg:"No Organization Found"});
+         return searchRequest ? res.status(200).json({data: searchRequest}) : res.status(404).json({err:"No Organization Found"});
       }catch(e){
          
          console.log(e)
@@ -69,8 +69,8 @@ export default class OrgServices {
       const {name} = req.params
       try{
 
-         const searchRequest = await Organization.findOne({rsocial: name}); 
-         return searchRequest ? res.status(200).json(searchRequest) : res.status(404).json({msg:"No Organization Found"});
+         const searchRequest = await Organization.find({rsocial: name}); 
+         return searchRequest ? res.status(200).json({data: searchRequest}) : res.status(404).json({err:"No Organization Found"});
       }catch(e){
          
          console.log(e)
@@ -88,7 +88,7 @@ export default class OrgServices {
       try{
 
         const updatedOrganization = await Organization.findByIdAndUpdate({_id: id}, {...body}, {new: true});
-        return updatedOrganization ? res.status(200).json(updatedOrganization) : res.status(404).json({err: "Organization Not Found"});
+        return updatedOrganization ? res.status(200).json({data: updatedOrganization}) : res.status(404).json({err: "Organization Not Found"});
       }catch(e){
 
         console.log(e)
@@ -103,7 +103,7 @@ export default class OrgServices {
       try{
          
          const deletedOrg = await Organization.findByIdAndDelete({_id:id});
-         return deletedOrg ? res.status(200).json(deletedOrg) : res.status(404).json({err: "Organization Not Found"});
+         return deletedOrg ? res.status(200).json({data: deletedOrg}) : res.status(404).json({err: "Organization Not Found"});
       }catch(e){
          
          console.log(e)

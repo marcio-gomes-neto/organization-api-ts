@@ -1,12 +1,43 @@
 import { Schema } from "mongoose";
 const UserSchema = new Schema({
-  cnpj: String,
-  rsocial: String,
-  email: String,
-  endereco: String,
-  cidade: String,
-  estado: String,
-  contato:String,
-  telefone: String,
+  cnpj: {
+    type: String,
+    required: true
+  },
+
+  rsocial: {
+    type: String,
+    required: true
+  },
+
+  email: {
+    type: String,
+    required: true
+  },
+  
+  endereco: {
+    type: String, 
+    default: ''
+  },
+
+  cidade: {
+    type: String, 
+    default: ''
+  },
+  
+  estado: {
+    type: String, 
+    default: ''
+  },
+
+  contato:{
+    type: String, 
+    default: ''
+  },
+
+  telefone: {
+    type: String, 
+    default: ''
+  },
 });
 export default UserSchema;

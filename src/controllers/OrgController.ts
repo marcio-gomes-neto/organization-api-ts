@@ -1,6 +1,6 @@
 import {Router} from "express";
 import OrgServices from '../services/orgServices';
-
+import {registerOrganizationValidator, validate} from "../middleware/validator"
 export default class OrgController {
 
     private router = Router();
@@ -16,7 +16,7 @@ export default class OrgController {
 
       this.router.put('/update/:id',this.services.updateOrg);
 
-      this.router.post('/', this.services.newUser);
+      this.router.post('/', registerOrganizationValidator(), validate, this.services.newUser);
 
       this.router.delete('/delete/:id',this.services.deleteOrg)
 
