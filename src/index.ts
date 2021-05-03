@@ -1,8 +1,11 @@
 import express from "express";
-import App from "./app";
+import App from "./App";
 import HomeController from "./controllers/HomeController";
 import OrgController from "./controllers/OrgController";
 import BootstrapApp from "./interfaces/bootstrap-app";
+import dotenv from 'dotenv';
+dotenv.config()
+
 
 const app = express();
 const bootstrapApp:BootstrapApp = {app: app, middlewares: [express.urlencoded({ extended: true }), express.json()], controllers: [new HomeController(), new OrgController()] };

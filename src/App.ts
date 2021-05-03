@@ -36,7 +36,7 @@ export default class App {
     async initDatabase(): Promise<void> {
 
         mongoose
-          .connect("mongodb+srv://admin:admin@cursojs.awfzm.mongodb.net/agendaDB?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
+          .connect(process.env.CONN_STRING!, { useNewUrlParser: true, useUnifiedTopology: true })
           .then(() => {
             return console.log(`Successfully connected to mongodbsrv`);
           })
