@@ -2,9 +2,9 @@
   "name": "organization-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "start:dev": "nodemon",
+    "start": "nodemon",
     "test": "jest",
     "secure-mode": "jest --watchAll --verbose=true"
   },
