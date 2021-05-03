@@ -1,6 +1,9 @@
 import express from 'express';
 import BootstrapApp from './interfaces/bootstrap-app';
 import mongoose from "mongoose"
+import swaggerUI from "swagger-ui-express";
+import YAML from 'yamljs';
+const swaggerDocument = YAML.load('./swagger.yml');
 
 export default class App {
 
@@ -11,6 +14,7 @@ export default class App {
         this.app = initApp.app;
         this.initializeMiddlewares(initApp.middlewares);
         this.initializeControllers(initApp.controllers);
+        this.app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
     }
 
     start(port:number){

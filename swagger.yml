@@ -1,0 +1,247 @@
+openapi: 3.0.0
+info:
+  title: Sample API
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.1.9
+
+paths:
+  /organization:
+    get:
+      summary: Return all organizations.
+      description: Returns all organizations from the system that the user has access to.
+      responses:
+        '200':    # status code
+          description: A JSON array of organizations
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                    _id:
+                        type: string
+                        example: 609051877dbe7054540d39d2
+                    cnpj:
+                        type: string
+                        example: '1234597979524978'
+                    rsocial:
+                        type: string
+                        example: organization1
+                    email:
+                        type: string
+                        example: mail@gmail.com
+    post:
+        summary: Creates a user.
+        requestBody:
+          required: true
+          content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        cnpj:
+                            type: string
+                        rsocial:
+                            type: string
+                        email:
+                            type: string
+        responses:
+            '201':
+                description: Created.
+                content:
+                application/json:
+                    schema:
+                    type: object
+                    properties:
+                        _id:
+                            type: integer
+                        cnpj:
+                            type: string
+                        rsocial:
+                            type: string
+                        email:
+                            type: string
+
+            '400':
+                description: Bad Request.
+            default:
+                description: Unexpected error
+
+  /organization/search/cnpj/{cnpj}:
+    get:
+      summary: Get a organization by it cnpj
+      parameters:
+        - in: path
+          name: cnpj
+          schema:
+            type: string
+            example: '1234597979524978'
+          required: true
+          description: Cnpj of the organization to get
+      responses:
+        '200':
+          description: A single organization with the requested cnpj
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                    _id:
+                        type: string
+                        example: 609051877dbe7054540d39d2
+                    cnpj:
+                        type: string
+                        example: '1234597979524978'
+                    rsocial:
+                        type: string
+                        example: organization1
+                    email:
+                        type: string
+                        example: mail@gmail.com
+
+  /organization/search/id/{id}:
+    get:
+      summary: Get a organization by it id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            example: '609051877dbe7054540d39d2'
+          required: true
+          description: ID of the organization to get
+      responses:
+        '200':
+          description: A single organization with the requested id
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                    _id:
+                        type: string
+                        example: 609051877dbe7054540d39d2
+                    cnpj:
+                        type: string
+                        example: '1234597979524978'
+                    rsocial:
+                        type: string
+                        example: organization1
+                    email:
+                        type: string
+                        example: mail@gmail.com
+
+  /organization/search/name/{name}:
+    get:
+      summary: Get all organizations with requested name
+      parameters:
+        - in: path
+          name: name
+          schema:
+            type: string
+            example: 'organization1'
+          required: true
+          description: name of the organization(s) to get
+      responses:
+        '200':
+          description: A array of organizations with the requested name
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                    _id:
+                        type: string
+                        example: 609051877dbe7054540d39d2
+                    cnpj:
+                        type: string
+                        example: '1234597979524978'
+                    rsocial:
+                        type: string
+                        example: organization1
+                    email:
+                        type: string
+                        example: mail@gmail.com 
+  /delete/{id}:
+    delete:
+      summary: Deletes the organization with the specified ID.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            example: '609051877dbe7054540d39d2'
+          required: true
+          description: ID of the organization to delete
+      responses:
+        '200':
+          description: Information of the Organization Deleted
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                    _id:
+                        type: string
+                        example: 609051877dbe7054540d39d2
+                    cnpj:
+                        type: string
+                        example: '1234597979524978'
+                    rsocial:
+                        type: string
+                        example: organization1
+                    email:
+                        type: string
+                        example: mail@gmail.com                          
+        '400':
+            description: Bad Request.
+        default:
+            description: Unexpected error
+
+  /update/{id}:
+    put:
+      summary: Update an organization
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            example: '609051877dbe7054540d39d2'
+          required: true
+          description: ID of the organization to update
+      requestBody:
+          required: true
+          content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        cnpj:
+                            type: string
+                        rsocial:
+                            type: string
+                        email:
+                            type: string                
+      responses:
+        '200':
+          description: Information of the updated organization
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                    _id:
+                        type: string
+                        example: 609051877dbe7054540d39d2
+                    cnpj:
+                        type: string
+                        example: '1234597979524978'
+                    rsocial:
+                        type: string
+                        example: organization1
+                    email:
+                        type: string
+                        example: mail@gmail.com                          
+        '400':
+            description: Bad Request. 
+        default:
+            description: Unexpected error                          
